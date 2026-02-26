@@ -16,7 +16,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://fastqrcodegen.online'),
-  title: "Free QR Code Generator – Create Custom QR Codes Online | FastQRGen",
+  title: {
+    default: "Free QR Code Generator Online (Logo, SVG, WiFi, URL, WhatsApp) | FastQRGen",
+    template: "%s | FastQRGen"
+  },
   description: "Create free custom QR codes instantly with our professional QR code generator. Support for URLs, text, WiFi, WhatsApp, email & more. Add logos, customize colors, download PNG/SVG. No signup required.",
   keywords: [
     "QR code generator",
@@ -34,13 +37,15 @@ export const metadata: Metadata = {
     "business QR code",
     "QR code creator",
     "fast QR generator",
+    "QR code online",
+    "free QR generator",
   ],
   authors: [{ name: "FastQRGen" }],
   icons: {
     icon: "/favicon.ico",
   },
   openGraph: {
-    title: "Free QR Code Generator – Create Custom QR Codes Online | FastQRGen",
+    title: "Free QR Code Generator Online (Logo, SVG, WiFi, URL, WhatsApp) | FastQRGen",
     description: "Create free custom QR codes instantly. Add logos, customize colors, download PNG/SVG. Support for URLs, WiFi, WhatsApp & more.",
     url: "https://fastqrcodegen.online",
     siteName: "FastQRGen - Free QR Code Generator",
@@ -50,13 +55,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "FastQRGen - Free QR Code Generator",
+        alt: "FastQRGen - Free QR Code Generator Online",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free QR Code Generator – Create Custom QR Codes Online",
+    title: "Free QR Code Generator Online (Logo, SVG, WiFi, URL, WhatsApp) | FastQRGen",
     description: "Create free custom QR codes instantly. Add logos, customize colors, download PNG/SVG.",
     images: ["/og-image.png"],
   },
