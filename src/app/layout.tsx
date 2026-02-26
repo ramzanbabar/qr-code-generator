@@ -15,7 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "QR Code Generator Free – Create Custom QR Codes Online",
+  metadataBase: new URL('https://fastqrcodegen.online'),
+  title: "Free QR Code Generator – Create Custom QR Codes Online | FastQRGen",
   description: "Create free custom QR codes instantly with our professional QR code generator. Support for URLs, text, WiFi, WhatsApp, email & more. Add logos, customize colors, download PNG/SVG. No signup required.",
   keywords: [
     "QR code generator",
@@ -32,29 +33,30 @@ export const metadata: Metadata = {
     "online QR generator",
     "business QR code",
     "QR code creator",
+    "fast QR generator",
   ],
-  authors: [{ name: "QR Code Generator" }],
+  authors: [{ name: "FastQRGen" }],
   icons: {
     icon: "/favicon.ico",
   },
   openGraph: {
-    title: "QR Code Generator Free – Create Custom QR Codes Online",
+    title: "Free QR Code Generator – Create Custom QR Codes Online | FastQRGen",
     description: "Create free custom QR codes instantly. Add logos, customize colors, download PNG/SVG. Support for URLs, WiFi, WhatsApp & more.",
-    url: "https://qrcode-generator.com",
-    siteName: "Free QR Code Generator",
+    url: "https://fastqrcodegen.online",
+    siteName: "FastQRGen - Free QR Code Generator",
     type: "website",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Free QR Code Generator - Create Custom QR Codes Online",
+        alt: "FastQRGen - Free QR Code Generator",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "QR Code Generator Free – Create Custom QR Codes Online",
+    title: "Free QR Code Generator – Create Custom QR Codes Online",
     description: "Create free custom QR codes instantly. Add logos, customize colors, download PNG/SVG.",
     images: ["/og-image.png"],
   },
@@ -79,7 +81,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="canonical" href="https://qrcode-generator.com" />
+        <link rel="canonical" href="https://fastqrcodegen.online" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}

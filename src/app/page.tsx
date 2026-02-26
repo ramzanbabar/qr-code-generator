@@ -1,12 +1,21 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { Sun, Moon, QrCode } from 'lucide-react';
+import { Sun, Moon, QrCode, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from 'next-themes';
 import FAQSection from '@/components/faq-section';
 import SEOContent from '@/components/seo-content';
 import { useMounted } from '@/hooks/use-mounted';
+import { useState } from 'react';
+import AboutSection from '@/components/sections/about-section';
+import ContactSection from '@/components/sections/contact-section';
+import TermsSection from '@/components/sections/terms-section';
+import PrivacySection from '@/components/sections/privacy-section';
+import DisclaimerSection from '@/components/sections/disclaimer-section';
+import FeaturesSection from '@/components/sections/features-section';
+import QRTypesSection from '@/components/sections/qr-types-section';
+import ProductSection from '@/components/sections/product-section';
 
 // Dynamically import the heavy QR generator component
 const QRCodeGenerator = dynamic(() => import('@/components/qr-code-generator'), {
@@ -28,7 +37,7 @@ const webApplicationSchema = {
   "@type": "WebApplication",
   "name": "Free QR Code Generator",
   "description": "Create free custom QR codes instantly with our professional QR code generator. Support for URLs, text, WiFi, WhatsApp, email & more. Add logos, customize colors, download PNG/SVG.",
-  "url": "https://qrcode-generator.com",
+  "url": "https://fastqrcodegen.online",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any",
   "offers": {
@@ -54,7 +63,7 @@ const webApplicationSchema = {
   },
   "author": {
     "@type": "Organization",
-    "name": "QR Code Generator"
+    "name": "FastQRGen"
   }
 };
 
@@ -135,7 +144,36 @@ function ThemeToggle() {
   );
 }
 
+const navLinks = [
+  { href: '#generator', label: 'Generator' },
+  { href: '#product', label: 'Product' },
+  { href: '#features', label: 'Features' },
+  { href: '#qr-types', label: 'QR Types' },
+  { href: '#about', label: 'About' },
+  { href: '#contact', label: 'Contact' },
+];
+
+const footerLinks = {
+  product: [
+    { href: '#generator', label: 'QR Generator' },
+    { href: '#product', label: 'Product' },
+    { href: '#features', label: 'Features' },
+    { href: '#qr-types', label: 'QR Code Types' },
+  ],
+  company: [
+    { href: '#about', label: 'About Us' },
+    { href: '#contact', label: 'Contact Us' },
+  ],
+  legal: [
+    { href: '#terms', label: 'Terms of Service' },
+    { href: '#privacy', label: 'Privacy Policy' },
+    { href: '#disclaimer', label: 'Disclaimer' },
+  ],
+};
+
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <>
       {/* Schema.org structured data */}
@@ -152,25 +190,71 @@ export default function Home() {
         {/* Header */}
         <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-            <div className="flex items-center gap-3">
+            <a href="#" className="flex items-center gap-3">
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
                 <QrCode className="w-6 h-6 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-xl font-bold">QR Code Generator</h1>
-                <p className="text-xs text-muted-foreground hidden sm:block">Free & Customizable</p>
+                <h1 className="text-xl font-bold">FastQRGen</h1>
+                <p className="text-xs text-muted-foreground hidden sm:block">Free QR Code Generator</p>
               </div>
-            </div>
+            </a>
+            
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-6">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+
             <div className="flex items-center gap-2">
               <ThemeToggle />
+              {/* Mobile Menu Button */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden w-10 h-10"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
+              </Button>
             </div>
           </div>
+
+          {/* Mobile Navigation */}
+          {mobileMenuOpen && (
+            <div className="md:hidden border-t bg-background">
+              <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+          )}
         </header>
 
         {/* Main Content */}
         <main className="flex-1">
           {/* Hero Section */}
-          <section className="py-8 md:py-12">
+          <section id="generator" className="py-8 md:py-12">
             <div className="container mx-auto px-4">
               <div className="text-center mb-8 md:mb-12">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
@@ -203,62 +287,107 @@ export default function Home() {
             </div>
           </section>
 
+          {/* Product Section */}
+          <ProductSection />
+
+          {/* Features Section */}
+          <FeaturesSection />
+
+          {/* QR Types Section */}
+          <QRTypesSection />
+
           {/* SEO Content Section */}
           <SEOContent />
+
+          {/* About Section */}
+          <AboutSection />
+
+          {/* Contact Section */}
+          <ContactSection />
+
+          {/* Terms Section */}
+          <TermsSection />
+
+          {/* Privacy Section */}
+          <PrivacySection />
+
+          {/* Disclaimer Section */}
+          <DisclaimerSection />
 
           {/* FAQ Section */}
           <FAQSection />
         </main>
 
         {/* Footer */}
-        <footer className="border-t bg-muted/30 py-8">
+        <footer className="border-t bg-muted/30 py-12">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
               {/* Brand */}
-              <div>
+              <div className="col-span-2">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                     <QrCode className="w-5 h-5 text-primary-foreground" />
                   </div>
-                  <span className="font-bold">QR Code Generator</span>
+                  <span className="font-bold">FastQRGen</span>
                 </div>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground mb-4">
                   Free online QR code generator with advanced customization options. 
                   Create professional QR codes for any purpose in seconds.
                 </p>
               </div>
 
-              {/* Quick Links */}
+              {/* Product Links */}
               <div>
-                <h3 className="font-semibold mb-4">QR Code Types</h3>
+                <h3 className="font-semibold mb-4 text-sm">Product</h3>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>🌐 Website URL QR Codes</li>
-                  <li>📶 WiFi Network QR Codes</li>
-                  <li>💬 WhatsApp Message QR Codes</li>
-                  <li>📧 Email QR Codes</li>
-                  <li>📞 Phone Number QR Codes</li>
-                  <li>📱 SMS Message QR Codes</li>
+                  {footerLinks.product.map((link) => (
+                    <li key={link.href}>
+                      <a href={link.href} className="hover:text-foreground transition-colors">
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
-              {/* Features */}
+              {/* Company Links */}
               <div>
-                <h3 className="font-semibold mb-4">Features</h3>
+                <h3 className="font-semibold mb-4 text-sm">Company</h3>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>✓ Custom Colors & Patterns</li>
-                  <li>✓ Logo Upload Support</li>
-                  <li>✓ PNG & SVG Downloads</li>
-                  <li>✓ Multiple Pattern Styles</li>
-                  <li>✓ Real-time Preview</li>
-                  <li>✓ 100% Free Forever</li>
+                  {footerLinks.company.map((link) => (
+                    <li key={link.href}>
+                      <a href={link.href} className="hover:text-foreground transition-colors">
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Legal Links */}
+              <div>
+                <h3 className="font-semibold mb-4 text-sm">Legal</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  {footerLinks.legal.map((link) => (
+                    <li key={link.href}>
+                      <a href={link.href} className="hover:text-foreground transition-colors">
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
 
-            <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
+            <div className="border-t mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
               <p>
-                © {new Date().getFullYear()} Free QR Code Generator. All QR codes generated are free to use for any purpose.
+                © {new Date().getFullYear()} FastQRGen. All rights reserved. All QR codes generated are free to use for any purpose.
               </p>
+              <div className="flex gap-4 mt-4 md:mt-0">
+                <a href="#terms" className="hover:text-foreground transition-colors">Terms</a>
+                <a href="#privacy" className="hover:text-foreground transition-colors">Privacy</a>
+                <a href="#disclaimer" className="hover:text-foreground transition-colors">Disclaimer</a>
+              </div>
             </div>
           </div>
         </footer>
